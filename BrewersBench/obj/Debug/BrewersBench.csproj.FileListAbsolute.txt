@@ -1,0 +1,6 @@
+F:\CodeProjects\BrewersBench\BrewersBench\BrewersBench\bin\Debug\BrewersBench.exe.config
+F:\CodeProjects\BrewersBench\BrewersBench\BrewersBench\bin\Debug\BrewersBench.exe
+F:\CodeProjects\BrewersBench\BrewersBench\BrewersBench\bin\Debug\BrewersBench.pdb
+F:\CodeProjects\BrewersBench\BrewersBench\BrewersBench\obj\Debug\BrewersBench.csprojResolveAssemblyReference.cache
+F:\CodeProjects\BrewersBench\BrewersBench\BrewersBench\obj\Debug\BrewersBench.exe
+F:\CodeProjects\BrewersBench\BrewersBench\BrewersBench\obj\Debug\BrewersBench.pdb
