@@ -10,22 +10,28 @@ namespace BrewersBench
     {
         static void Main(string[] args)
         {
-            PotionBuilder pb = PotionBuilder.GetCleanPotionBuilderInstance();
-            BenchStock bs = BenchStock.GetBenchStockInstance();
             OutputHandler oh = OutputHandler.GetDialogueHandlerInstance();
-            Effect e1 = new StatEffect("Stat Effect 1", ImbiberStat.Attack, 60);
-            Vessel v = new Vessel("Vial", 3, Usage.singleTarget, 0);
-            Base b = new Base("Water", 0, 1, null);
-            Ingredient i = new Ingredient("Vitalae", 0, new List<Effect> { e1 });
-            pb.addVessel(v);
-            pb.addBase(b);
-            pb.addIngredient(i);
-            pb.BrewPotion();
 
-            oh.outputNewPotionDetails(pb);
-            Console.ReadLine();
+            while (true)
+            {
+                oh.outputBrewersBenchGreeting();
+                string selection = Console.ReadLine();
+                if (selection == "count")
+                {
+                    Stocker counter = new Stocker();
+                    Console.WriteLine(counter.fetchStockedVesselCount());
+                    continue;
+                }
 
-
+                // If Stock is seleted: 
+                Stocker stocker = new Stocker();
+                StockerClient sc = new StockerClient(stocker);
+                int outcome = sc.StockerClientMain();
+                if (outcome < 0)
+                {
+                    return;
+                }
+            }
         }
     }
 }

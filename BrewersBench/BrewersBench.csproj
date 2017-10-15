@@ -44,8 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base.cs" />
+    <Compile Include="BenchBrewing.cs" />
     <Compile Include="BenchStock.cs" />
-    <Compile Include="DialogueHandler.cs" />
+    <Compile Include="BenchUser.cs" />
+    <Compile Include="BenchCommand.cs" />
+    <Compile Include="BrewersBenchSystem.cs" />
+    <Compile Include="OutputHandler.cs" />
     <Compile Include="Effect.cs" />
     <Compile Include="IDescriptor.cs" />
     <Compile Include="Ingredient.cs" />
@@ -53,6 +57,7 @@
     <Compile Include="PotionBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockerClient.cs" />
     <Compile Include="Vessel.cs" />
   </ItemGroup>
   <ItemGroup>
