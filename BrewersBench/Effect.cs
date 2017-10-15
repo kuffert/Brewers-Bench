@@ -9,9 +9,19 @@ namespace BrewersBench
     /// <summary>
     /// A Base, Ingredient, or Catalyst behavior applied to the final Potion. 
     /// </summary>
-    public abstract class Effect
+    public abstract class Effect : IDescriptor
     {
         public string name;
+
+        /// <summary>
+        /// The default descriptor for an Effect depends on the subclass type. Let
+        /// The child determine how to descibe itself. 
+        /// </summary>
+        /// <returns></returns>
+        public string defaultDescriptor()
+        {
+            return composeEffectDescription();
+        }
 
         /// <summary>
         /// Determines if the Effect is negated by the given effect.
@@ -58,6 +68,12 @@ namespace BrewersBench
         /// </summary>
         /// <returns></returns>
         public abstract string getStrengthQualifier();
+
+        /// <summary>
+        /// Composes a descriptor string based on the Effect's parameters.
+        /// </summary>
+        /// <returns></returns>
+        public abstract string composeEffectDescription();
 
         /// <summary>
         /// Determines whether the given buff and debuff are opposites.
@@ -151,6 +167,15 @@ namespace BrewersBench
         public override string getStrengthQualifier()
         {
             return "";
+        }
+
+        /// <summary>
+        /// No Effect description composition outputs a "No Effect" string.
+        /// </summary>
+        /// <returns></returns>
+        public override string composeEffectDescription()
+        {
+            return "No Effect";
         }
 
     }
@@ -268,6 +293,15 @@ namespace BrewersBench
             
             return rs;
         }
+
+        /// <summary>
+        /// Composes a descriptor based on the stat modified and the strength of the modifier.
+        /// </summary>
+        /// <returns></returns>
+        public override string composeEffectDescription()
+        {
+            return "+ " + statModifier + " " + affectedStat;
+        }
     }
 
     /// <summary>
@@ -383,6 +417,15 @@ namespace BrewersBench
             return rs;
         }
 
+        /// <summary>
+        /// Constructs a descriptor based on the Effects intensity and the buff it applies.
+        /// </summary>
+        /// <returns></returns>
+        public override string composeEffectDescription()
+        {
+            return "+ " + intensity + " " + buff;
+        }
+
     }
 
     /// <summary>
@@ -492,6 +535,15 @@ namespace BrewersBench
             rs += debuff.ToString();
 
             return rs;
+        }
+
+        /// <summary>
+        /// Constructs a descriptor based on the Effects intensity and the debuff it applies.
+        /// </summary>
+        /// <returns></returns>
+        public override string composeEffectDescription()
+        {
+            return "- " + intensity + " " + debuff;
         }
     }
 }

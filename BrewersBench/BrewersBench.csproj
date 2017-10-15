@@ -44,8 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base.cs" />
+    <Compile Include="BenchStock.cs" />
     <Compile Include="DialogueHandler.cs" />
     <Compile Include="Effect.cs" />
+    <Compile Include="IDescriptor.cs" />
     <Compile Include="Ingredient.cs" />
     <Compile Include="Potion.cs" />
     <Compile Include="PotionBuilder.cs" />

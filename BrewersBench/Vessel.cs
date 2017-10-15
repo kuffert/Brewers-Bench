@@ -18,7 +18,7 @@ namespace BrewersBench
     /// <summary>
     /// Container of the brewed potion. Determines the dosage and usage of the final potion.
     /// </summary>
-    public class Vessel
+    public class Vessel : IDescriptor
     {
 
         public string name;
@@ -50,6 +50,29 @@ namespace BrewersBench
             this.doses = (doses <= 0) ? 0 : doses;
             this.usage = usage;
             this.radius = (radius < 0) ? 0 : radius;
+        }
+
+        /// <summary>
+        /// Constructs a descriptor based on the Vessel's name, dosage, usage, and radius.
+        /// </summary>
+        /// <returns></returns>
+        public string defaultDescriptor()
+        {
+            string builder = "";
+            builder += name + "\n";
+            builder += "~ " + doses + " doses\n";
+            switch (usage)
+            {
+                case (Usage.singleTarget):
+                    builder += "~ Single Target\n";
+                    break;
+
+                case (Usage.multiTarget):
+                    builder += "~ Multi Target\n";
+                    break;
+            }
+            builder += "~ " + radius + " ft. radius";
+            return builder;
         }
     }
 }

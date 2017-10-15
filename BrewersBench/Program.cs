@@ -11,7 +11,8 @@ namespace BrewersBench
         static void Main(string[] args)
         {
             PotionBuilder pb = PotionBuilder.GetCleanPotionBuilderInstance();
-            DialogueHandler dh = DialogueHandler.GetDialogueHandlerInstance();
+            BenchStock bs = BenchStock.GetBenchStockInstance();
+            OutputHandler oh = OutputHandler.GetDialogueHandlerInstance();
             Effect e1 = new StatEffect("Stat Effect 1", ImbiberStat.Attack, 60);
             Vessel v = new Vessel("Vial", 3, Usage.singleTarget, 0);
             Base b = new Base("Water", 0, 1, null);
@@ -21,7 +22,7 @@ namespace BrewersBench
             pb.addIngredient(i);
             pb.BrewPotion();
 
-            dh.outputNewPotionDetails(pb);
+            oh.outputNewPotionDetails(pb);
             Console.ReadLine();
 
 

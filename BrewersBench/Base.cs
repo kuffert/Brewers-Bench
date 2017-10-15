@@ -9,7 +9,7 @@ namespace BrewersBench
     /// <summary>
     /// Base liquid the potion will be constructed with. Determines volatility, dosage, and effects.
     /// </summary>
-    public class Base
+    public class Base : IDescriptor
     {
         public string name;
         public int volatility;
@@ -39,6 +39,23 @@ namespace BrewersBench
             this.volatility = (volatility < 0) ? 0 : volatility;
             this.dosageMod = (dosageMod <= 0) ? 1 : dosageMod;
             this.baseEffects = (baseEffects == null) ? new List<Effect>() : baseEffects;
+        }
+
+        /// <summary>
+        /// Constructs a descriptor from the Base's volatility, dosage, and Effects.
+        /// </summary>
+        /// <returns></returns>
+        public string defaultDescriptor()
+        {
+            string builder = "";
+            builder += name + "\n";
+            builder += "~ " + volatility + " Volatility\n";
+            builder += "~ " + dosageMod + " Dosage Modfier";
+            foreach(Effect e in baseEffects)
+            {
+                builder += e.defaultDescriptor() + "\n";
+            }
+            return builder;
         }
     }
 }

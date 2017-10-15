@@ -9,7 +9,7 @@ namespace BrewersBench
     /// <summary>
     /// Primary ingredient in the final Potion. Determines the volatility and effects of final Potion on the Imbiber.
     /// </summary>
-    class Ingredient
+    class Ingredient : IDescriptor
     {
         public string name;
         public int volatility;
@@ -37,5 +37,20 @@ namespace BrewersBench
             this.ingredientEffects = (ingredientEffects == null) ? new List<Effect>() : ingredientEffects;
         }
 
+        /// <summary>
+        /// Constructs a descriptor based on the Ingredient's name, volatility, and Effects.
+        /// </summary>
+        /// <returns></returns>
+        public string defaultDescriptor()
+        {
+            string builder = name + "\n";
+
+            foreach (Effect e in ingredientEffects)
+            {
+                builder += e.defaultDescriptor() + "\n";
+            }
+
+            return builder;
+        }
     }
 }

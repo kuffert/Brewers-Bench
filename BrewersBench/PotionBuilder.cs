@@ -103,13 +103,14 @@ namespace BrewersBench
             allEffects.AddRange(potionIngredient.ingredientEffects);
             allEffects = processEffects(allEffects);
             string potionName = generatePotionName(totalDoses, totalVolatility, allEffects[0]);
-            potion = new Potion(potionName, totalVolatility, totalDoses, usage, allEffects);
+            potion = new Potion(potionName, totalDoses, totalVolatility, usage, allEffects);
 
             return potion;
         }
 
         /// <summary>
         /// Purges Effects that negate each other and combines effects of the same type.
+        /// TODO: This function could use a rework to increase efficiency. Currently it runs in O(n^2)
         /// </summary>
         /// <param name="effects"></param>
         private List<Effect> processEffects(List<Effect> effects)
@@ -159,7 +160,7 @@ namespace BrewersBench
         /// </summary>
         /// <param name="primaryEffect"></param>
         /// <returns></returns>
-        public string generatePotionName(int doses, int volatility, Effect primaryEffect)
+        private string generatePotionName(int doses, int volatility, Effect primaryEffect)
         {
             string name = "";
 

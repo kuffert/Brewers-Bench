@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 namespace BrewersBench
 {
-    class DialogueHandler
+
+    /// <summary>
+    /// Handles the processing and outputting of dialogue to the user.
+    /// </summary>
+    class OutputHandler
     {
 
-        public static DialogueHandler instance;
+        public static OutputHandler instance;
 
         /// <summary>
         /// Protected DialogueHandler singleton Constructor.
         /// </summary>
-        protected DialogueHandler()
+        protected OutputHandler()
         {
 
         }
@@ -23,24 +27,24 @@ namespace BrewersBench
         /// Retrieves the single instance of the DialogueHandler singleton, and creates a new one if one does not yet exist.
         /// </summary>
         /// <returns></returns>
-        public static DialogueHandler GetDialogueHandlerInstance()
+        public static OutputHandler GetDialogueHandlerInstance()
         {
             if (instance == null)
             {
-                instance = new DialogueHandler();
+                instance = new OutputHandler();
             }
             return instance;
         }
 
         /// <summary>
-        /// When a new potion is a brewed, this function will output the potions details.
+        /// When a new potion is a brewed, this function will output the Potion's details.
         /// </summary>
         /// <param name="pb"></param>
         public void outputNewPotionDetails(PotionBuilder pb)
         {
             Console.WriteLine("----------NEW POTION BREWED!!!------------");
             Console.WriteLine("------------------------------------------");
-            Console.WriteLine(pb.getPotion().getPotionName());
+            Console.WriteLine(pb.getPotion().defaultDescriptor());
             Console.WriteLine("------------------------------------------");
         }
     }

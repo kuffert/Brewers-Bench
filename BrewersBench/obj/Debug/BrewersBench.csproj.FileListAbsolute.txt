@@ -4,3 +4,9 @@ F:\CodeProjects\BrewersBench\BrewersBench\BrewersBench\bin\Debug\BrewersBench.pd
 F:\CodeProjects\BrewersBench\BrewersBench\BrewersBench\obj\Debug\BrewersBench.csprojResolveAssemblyReference.cache
 F:\CodeProjects\BrewersBench\BrewersBench\BrewersBench\obj\Debug\BrewersBench.exe
 F:\CodeProjects\BrewersBench\BrewersBench\BrewersBench\obj\Debug\BrewersBench.pdb
+C:\Users\chris\Documents\BrewersBench\BrewersBench\bin\Debug\BrewersBench.exe.config
+C:\Users\chris\Documents\BrewersBench\BrewersBench\obj\Debug\BrewersBench.exe
+C:\Users\chris\Documents\BrewersBench\BrewersBench\obj\Debug\BrewersBench.pdb
+C:\Users\chris\Documents\BrewersBench\BrewersBench\bin\Debug\BrewersBench.exe
+C:\Users\chris\Documents\BrewersBench\BrewersBench\bin\Debug\BrewersBench.pdb
+C:\Users\chris\Documents\BrewersBench\BrewersBench\obj\Debug\BrewersBench.csprojResolveAssemblyReference.cache

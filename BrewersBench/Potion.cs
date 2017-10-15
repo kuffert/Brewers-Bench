@@ -9,7 +9,7 @@ namespace BrewersBench
     /// <summary>
     /// Result of combining a Vessel, Base, and Ingredient. Potions can have a multitude of Effects on the Imbiber.
     /// </summary>
-    class Potion
+    class Potion : IDescriptor
     {
         string name;
         float doses;
@@ -47,6 +47,34 @@ namespace BrewersBench
         }
 
         /// <summary>
+        /// Constructs a descriptor for this potion based on its name, volatility, dosage, usage, and effects.
+        /// </summary>
+        /// <returns></returns>
+        public string defaultDescriptor()
+        {
+            string builder = name + "\n";
+            builder += "~ " + doses + " doses\n";
+            builder += "~ " + volatility + " volatility\n";
+            switch (usage)
+            {
+                case (Usage.singleTarget):
+                    builder += "~ Single Target\n";
+                    break;
+
+                case (Usage.multiTarget):
+                    builder += "~ Multi Target\n";
+                    break;
+            }
+
+            foreach(Effect e in potionEffects)
+            {
+                builder += e.defaultDescriptor() + "\n";
+            }
+
+            return builder;
+        }
+
+        /// <summary>
         /// Gets the potion's name.
         /// </summary>
         /// <returns></returns>
@@ -55,6 +83,14 @@ namespace BrewersBench
             return name;
         }
 
+        /// <summary>
+        /// Gets the potion's effects.
+        /// </summary>
+        /// <returns></returns>
+        public List<Effect> getEffects()
+        {
+            return potionEffects;
+        }
     }
 
 }
