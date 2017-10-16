@@ -11,6 +11,7 @@ namespace BrewersBench
     /// </summary>
     class Potion : IDescriptor
     {
+        private int id;
         string name;
         float doses;
         int volatility;
@@ -22,6 +23,7 @@ namespace BrewersBench
         /// </summary>
         public Potion()
         {
+            id = -1;
             name = "Default Potion";
             doses = 1;
             volatility = 0;
@@ -37,8 +39,27 @@ namespace BrewersBench
         /// <param name="volatility">How dangerous this potion is to the Imbiber</param>
         /// <param name="usage">Number of targets this Potion effects</param>
         /// <param name="potionEffects">All Effects this Potion will have on the Imbiber</param>
-        public Potion (string name, float doses, int volatility, Usage usage, List<Effect> potionEffects)
+        public Potion (int id, string name, float doses, int volatility, Usage usage, List<Effect> potionEffects)
         {
+            this.id = id;
+            this.name = name;
+            this.doses = doses;
+            this.volatility = volatility;
+            this.usage = usage;
+            this.potionEffects = potionEffects;
+        }
+
+        /// <summary>
+        /// Standard Potion Constructor with no provided ID
+        /// </summary>
+        /// <param name="name">Name of the brewed Potion</param>
+        /// <param name="doses">Number of potential doses of this Potion</param>
+        /// <param name="volatility">How dangerous this potion is to the Imbiber</param>
+        /// <param name="usage">Number of targets this Potion effects</param>
+        /// <param name="potionEffects">All Effects this Potion will have on the Imbiber</param>
+        public Potion(string name, float doses, int volatility, Usage usage, List<Effect> potionEffects)
+        {
+            id = -1;
             this.name = name;
             this.doses = doses;
             this.volatility = volatility;

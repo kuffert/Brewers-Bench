@@ -10,3 +10,5 @@ C:\Users\chris\Documents\BrewersBench\BrewersBench\obj\Debug\BrewersBench.pdb
 C:\Users\chris\Documents\BrewersBench\BrewersBench\bin\Debug\BrewersBench.exe
 C:\Users\chris\Documents\BrewersBench\BrewersBench\bin\Debug\BrewersBench.pdb
 C:\Users\chris\Documents\BrewersBench\BrewersBench\obj\Debug\BrewersBench.csprojResolveAssemblyReference.cache
+C:\Users\chris\Documents\BrewersBench\BrewersBench\bin\Debug\BrewersBenchDB.mdf
+C:\Users\chris\Documents\BrewersBench\BrewersBench\bin\Debug\BrewersBenchDB_log.ldf

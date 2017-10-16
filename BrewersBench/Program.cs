@@ -16,20 +16,25 @@ namespace BrewersBench
             {
                 oh.outputBrewersBenchGreeting();
                 string selection = Console.ReadLine();
-                if (selection == "count")
+                if (selection == "view")
                 {
-                    Stocker counter = new Stocker();
-                    Console.WriteLine(counter.fetchStockedVesselCount());
-                    continue;
+                    Observer observer = new Observer();
+                    ObserverClient oc = new ObserverClient(observer);
+                    int oco = oc.ObserverClientMain();
+                    if (oco < 0)
+                    {
+                        return;
+                    }
                 }
-
-                // If Stock is seleted: 
-                Stocker stocker = new Stocker();
-                StockerClient sc = new StockerClient(stocker);
-                int outcome = sc.StockerClientMain();
-                if (outcome < 0)
+                if (selection == "stock")
                 {
-                    return;
+                    Stocker stocker = new Stocker();
+                    StockerClient sc = new StockerClient(stocker);
+                    int outcome = sc.StockerClientMain();
+                    if (outcome < 0)
+                    {
+                        return;
+                    }
                 }
             }
         }

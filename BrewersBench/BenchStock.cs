@@ -18,6 +18,8 @@ namespace BrewersBench
         private List<Ingredient> stockedIngredients;
         private List<Potion> stockedPotions;
 
+        private DBQuery dbQuery;
+
         /// <summary>
         /// Private BenchStock constructor that initializes all stocked lists of materials.
         /// </summary>
@@ -27,6 +29,18 @@ namespace BrewersBench
             stockedBases = new List<Base>();
             stockedIngredients = new List<Ingredient>();
             stockedPotions = new List<Potion>();
+            dbQuery = new DBQuery();
+            initializeBench();
+        }
+
+        /// <summary>
+        /// Initializes the bench by querying data from DB.
+        /// </summary>
+        private void initializeBench()
+        {
+            stockedIngredients = dbQuery.queryIngredients();
+            stockedVessels = dbQuery.queryVessels();
+            stockedBases = dbQuery.queryBases();
         }
 
         /// <summary>

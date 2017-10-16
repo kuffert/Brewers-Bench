@@ -6,11 +6,25 @@ using System.Threading.Tasks;
 
 namespace BrewersBench
 {
+
+    /// <summary>
+    /// Enum for each sublass type of Effect.
+    /// </summary>
+    public enum EffectType
+    {
+        NONE = 0,
+        STAT = 1,
+        BUFF = 2,
+        DEBUFF = 3
+    };
+
     /// <summary>
     /// A Base, Ingredient, or Catalyst behavior applied to the final Potion. 
     /// </summary>
     public abstract class Effect : IDescriptor
     {
+
+        protected int id;
         public string name;
 
         /// <summary>
@@ -98,8 +112,18 @@ namespace BrewersBench
         /// <summary>
         /// Default No Effect Constructor
         /// </summary>
+        public NoEffect(int id)
+        {
+            this.id = id;
+            name = "No Effect";
+        }
+
+        /// <summary>
+        /// Default No Effect Constructor with no ID provided
+        /// </summary>
         public NoEffect()
         {
+            id = -1;
             name = "No Effect";
         }
 
@@ -185,10 +209,10 @@ namespace BrewersBench
     /// </summary>
     public enum ImbiberStat
     {
-        Health,
-        Stamina,
-        Attack,
-        Defense
+        Health = 0,
+        Stamina = 1,
+        Attack = 2,
+        Defense = 3
     };
 
     /// <summary>
@@ -206,8 +230,24 @@ namespace BrewersBench
         /// <param name="affectedStat">The Imbiber Stat that this Effect will modify</param>
         /// <param name="statModifier">How much to modify the stat by</param>
         /// <param name="negatedEffect">The Effect that this Effect negates/is negated by</param>
+        public StatEffect(int id, string name, ImbiberStat affectedStat, int statModifier)
+        {
+            this.id = id;
+            this.name = (name == "") ? "Unnamed Stat Effect" : name;
+            this.affectedStat = affectedStat;
+            this.statModifier = statModifier;
+        }
+
+        /// <summary>
+        /// Standard StatEffect Constructor with no ID provided
+        /// </summary>
+        /// <param name="name">Name of Stat Effect</param>
+        /// <param name="affectedStat">The Imbiber Stat that this Effect will modify</param>
+        /// <param name="statModifier">How much to modify the stat by</param>
+        /// <param name="negatedEffect">The Effect that this Effect negates/is negated by</param>
         public StatEffect(string name, ImbiberStat affectedStat, int statModifier)
         {
+            id = -1;
             this.name = (name == "") ? "Unnamed Stat Effect" : name;
             this.affectedStat = affectedStat;
             this.statModifier = statModifier;
@@ -309,10 +349,10 @@ namespace BrewersBench
     /// </summary>
     public enum ImbiberBuff
     {
-        Shielding,
-        Barrier,
-        Speed,
-        Aim
+        Shielding = 0,
+        Barrier = 1,
+        Speed = 2,
+        Aim = 3
     };
 
     /// <summary>
@@ -330,8 +370,24 @@ namespace BrewersBench
         /// <param name="buff">The ImbiberBuff that this Effect will apply</param>
         /// <param name="intensity">The strength of the buff</param>
         /// <param name="negatedEffect">The Effect that this Effect negates/is negated by</param>
-        protected BuffEffect(string name, ImbiberBuff buff, int intensity)
+        public BuffEffect(int id, string name, ImbiberBuff buff, int intensity)
         {
+            this.id = id;
+            this.name = (name == "") ? "Unnamed Buff Effect" : name;
+            this.buff = buff;
+            this.intensity = (intensity < 1) ? 1 : intensity;
+        }
+
+        /// <summary>
+        /// Standard ImbiberBuff Constructor with no ID provided
+        /// </summary>
+        /// <param name="name">Nqame of Buff Effect</param>
+        /// <param name="buff">The ImbiberBuff that this Effect will apply</param>
+        /// <param name="intensity">The strength of the buff</param>
+        /// <param name="negatedEffect">The Effect that this Effect negates/is negated by</param>
+        public BuffEffect(string name, ImbiberBuff buff, int intensity)
+        {
+            id = -1;
             this.name = (name == "") ? "Unnamed Buff Effect" : name;
             this.buff = buff;
             this.intensity = (intensity < 1) ? 1 : intensity;
@@ -433,10 +489,10 @@ namespace BrewersBench
     /// </summary>
     public enum ImbiberDebuff
     {
-        Weakness,
-        Dullness,
-        Slowness,
-        Blindness
+        Weakness = 0,
+        Dullness = 1,
+        Slowness = 2,
+        Blindness = 3
     };
 
     /// <summary>
@@ -450,8 +506,20 @@ namespace BrewersBench
         /// <summary>
         /// Standard DebuffEffect Constructor
         /// </summary>
+        public DebuffEffect(int id, string name, ImbiberDebuff debuff, int intensity)
+        {
+            this.id = id;
+            this.name = (name == "") ? "Unnamed Debuff Effect" : name;
+            this.debuff = debuff;
+            this.intensity = (intensity < 1) ? 1 : intensity;
+        }
+
+        /// <summary>
+        /// Standard DebuffEffect Constructor with no ID provided
+        /// </summary>
         public DebuffEffect(string name, ImbiberDebuff debuff, int intensity)
         {
+            id = -1;
             this.name = (name == "") ? "Unnamed Debuff Effect" : name;
             this.debuff = debuff;
             this.intensity = (intensity < 1) ? 1 : intensity;

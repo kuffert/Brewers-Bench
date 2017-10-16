@@ -150,7 +150,56 @@ namespace BrewersBench
         /// </summary>
         private int handleBase()
         {
-            throw new NotImplementedException();
+            Base b = new Base();
+            int step = 0;
+            while (step < 4)
+            {
+                oh.outputBaseRequiredNextInput(step);
+                string input = Console.ReadLine();
+                switch(step)
+                {
+                    case 0:
+                        b.name = input;
+                        step++;
+                        break;
+                    case 1:
+                        int volatility = 0;
+                        if (Int32.TryParse(input, out volatility))
+                        {
+                            b.volatility = volatility;
+                            step++;
+                            break;
+                        }
+                        oh.outputBaseInputError(step);
+                        break;
+                    case 2:
+                        float dosageMod = 0;
+                        if (float.TryParse(input, out dosageMod))
+                        {
+                            b.dosageMod = dosageMod;
+                            step++;
+                            break;
+                        }
+                        oh.outputBaseInputError(step);
+                        break;
+                    case 3:
+                        int effectsOutcome = handleEffect();
+                        if (effectsOutcome == 0)
+                        {
+                            return 0;
+                        }
+                        if (effectsOutcome < 0)
+                        {
+                            oh.outputBaseInputError(step);
+                            break;
+                        }
+                        step++;
+                        break;
+                }
+            }
+            stocker.executeStockBase(b);
+            oh.outputBaseSuccess();
+            return 1;
         }
 
         /// <summary>
@@ -158,7 +207,46 @@ namespace BrewersBench
         /// </summary>
         private int handleIngredient()
         {
-            throw new NotImplementedException();
+            Ingredient i = new Ingredient();
+            int step = 0;
+            while (step < 3)
+            {
+                oh.outputIngredientRequiredNextInput(step);
+                string input = Console.ReadLine();
+                switch(step)
+                {
+                    case 0:
+                        i.name = input;
+                        step++;
+                        break;
+                    case 1:
+                        int volatility = 0;
+                        if (Int32.TryParse(input, out volatility))
+                        {
+                            i.volatility = volatility;
+                            step++;
+                            break;
+                        }
+                        oh.outputIngredientInputError(step);
+                        break;
+                    case 2:
+                        int effectsOutcome = handleEffect();
+                        if (effectsOutcome == 0)
+                        {
+                            return 0;
+                        }
+                        if (effectsOutcome < 0)
+                        {
+                            oh.outputIngredientInputError(step);
+                            break;
+                        }
+                        step++;
+                        break;
+                }
+            }
+            stocker.executeStockingredient(i);
+            oh.outputIngredientSuccess();
+            return 1;
         }
 
         /// <summary>
@@ -166,7 +254,17 @@ namespace BrewersBench
         /// </summary>
         private int handlePotion()
         {
-            throw new NotImplementedException();
+            oh.outputPotionSuccess();
+            return 1;
+        }
+
+        /// <summary>
+        /// Handles "effect" user input. 
+        /// </summary>
+        /// <returns></returns>
+        private  int handleEffect()
+        {
+            return 1;
         }
     }
 }

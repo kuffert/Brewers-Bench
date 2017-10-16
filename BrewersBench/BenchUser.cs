@@ -68,6 +68,52 @@ namespace BrewersBench
         {
             return system.getPotionStockCount();
         }
+
+        /// <summary>
+        /// Fetches all stocked Vessels from the Bench Stock.
+        /// </summary>
+        public List<Vessel> fetchStockedVessels()
+        {
+            return system.getStockedVessels();
+        }
+
+        /// <summary>
+        /// Fetches all stocked Bases from the Bench Stock.
+        /// </summary>
+        /// <returns></returns>
+        public List<Base> fetchStockedBases()
+        {
+            return system.getStockedBases();
+        }
+
+        /// <summary>
+        /// Fetches all stocked Ingredients from the Bench Stock.
+        /// </summary>
+        /// <returns></returns>
+        public List<Ingredient> fetchStockedIngredients()
+        {
+            return system.getStockedIngredients();
+        }
+
+        /// <summary>
+        /// Fetches all stocked Potions from the Bench Stock.
+        /// </summary>
+        /// <returns></returns>
+        public List<Potion> fetchStockedPotions()
+        {
+            return system.getStockedPotions();
+        }
+    }
+
+    /// <summary>
+    /// A User who can invoke commands to view Bench Stock. Cannot Brew or Stock.
+    /// </summary>
+    class Observer : BenchUser
+    {
+        public Observer()
+        {
+
+        }
     }
 
     /// <summary>

@@ -11,6 +11,7 @@ namespace BrewersBench
     /// </summary>
     public class Base : IDescriptor
     {
+        private int id;
         public string name;
         public int volatility;
         public float dosageMod;
@@ -21,6 +22,7 @@ namespace BrewersBench
         /// </summary>
         public Base()
         {
+            id = -1;
             name = "Unnamed Base";
             volatility = 0;
             dosageMod = 1;
@@ -33,8 +35,24 @@ namespace BrewersBench
         /// <param name="volatility">How dangerous the Base is to the Imbiber</param>
         /// <param name="dosageMod">Effect of Base on vessel dosage</param>
         /// <param name="baseEffects">All potential Effects this Base will have on the Imbiber</param>
+        public Base(int id, string name, int volatility, float dosageMod, List<Effect> baseEffects)
+        {
+            this.id = id;
+            this.name = (name == "") ? "Unnamed Base" : name;
+            this.volatility = (volatility < 0) ? 0 : volatility;
+            this.dosageMod = (dosageMod <= 0) ? 1 : dosageMod;
+            this.baseEffects = (baseEffects == null) ? new List<Effect>() : baseEffects;
+        }
+
+        /// <summary>
+        /// Standard Base Constructor with no ID provided
+        /// </summary>
+        /// <param name="volatility">How dangerous the Base is to the Imbiber</param>
+        /// <param name="dosageMod">Effect of Base on vessel dosage</param>
+        /// <param name="baseEffects">All potential Effects this Base will have on the Imbiber</param>
         public Base(string name, int volatility, float dosageMod, List<Effect> baseEffects)
         {
+            id = -1;
             this.name = (name == "") ? "Unnamed Base" : name;
             this.volatility = (volatility < 0) ? 0 : volatility;
             this.dosageMod = (dosageMod <= 0) ? 1 : dosageMod;

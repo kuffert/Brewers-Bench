@@ -11,8 +11,8 @@ namespace BrewersBench
     /// </summary>
     public enum Usage
     {
-        singleTarget,
-        multiTarget
+        singleTarget = 0,
+        multiTarget = 1
     };
 
     /// <summary>
@@ -20,7 +20,7 @@ namespace BrewersBench
     /// </summary>
     public class Vessel : IDescriptor
     {
-
+        private int id;
         public string name;
         public float doses;
         public Usage usage;
@@ -31,6 +31,7 @@ namespace BrewersBench
         /// </summary>
         public Vessel()
         {
+            id = -1;
             name = "Default Vessel";
             doses = 3;
             usage = Usage.singleTarget;
@@ -44,8 +45,25 @@ namespace BrewersBench
         /// <param name="doses">Number of doses this Vessel holds</param>
         /// <param name="usage">Number of targets this Vessel effects</param>
         /// <param name="radius">Radius of potion if usage is multitarget</param>
+        public Vessel(int id, string name, float doses, Usage usage, int radius)
+        {
+            this.id = id;
+            this.name = (name == "") ? "Unnamed Vessel" : name;
+            this.doses = (doses <= 0) ? 0 : doses;
+            this.usage = usage;
+            this.radius = (radius < 0) ? 0 : radius;
+        }
+
+        /// <summary>
+        /// Standard Vessel Constructor with no ID provided
+        /// </summary>
+        /// <param name="name">Name of Vessel</param>
+        /// <param name="doses">Number of doses this Vessel holds</param>
+        /// <param name="usage">Number of targets this Vessel effects</param>
+        /// <param name="radius">Radius of potion if usage is multitarget</param>
         public Vessel(string name, float doses, Usage usage, int radius)
         {
+            id = -1;
             this.name = (name == "") ? "Unnamed Vessel" : name;
             this.doses = (doses <= 0) ? 0 : doses;
             this.usage = usage;

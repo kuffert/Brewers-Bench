@@ -11,6 +11,7 @@ namespace BrewersBench
     /// </summary>
     class Ingredient : IDescriptor
     {
+        private int id;
         public string name;
         public int volatility;
         public List<Effect> ingredientEffects;
@@ -20,6 +21,7 @@ namespace BrewersBench
         /// </summary>
         public Ingredient()
         {
+            id = -1;
             name = "Unnamed Ingredient";
             volatility = 0;
             ingredientEffects = new List<Effect>();
@@ -30,8 +32,22 @@ namespace BrewersBench
         /// </summary>
         /// <param name="volatility">How dangerous this Ingredient is to the Imbiber</param>
         /// <param name="ingredientEffects">All potential Effects this ingredient will have on the Imbiber</param>
+        public Ingredient(int id, string name, int volatility, List<Effect> ingredientEffects)
+        {
+            this.id = id;
+            this.name = (name == "") ? "Unnamed Ingredient" : name;
+            this.volatility = (volatility <= 0) ? 0 : volatility;
+            this.ingredientEffects = (ingredientEffects == null) ? new List<Effect>() : ingredientEffects;
+        }
+
+        /// <summary>
+        /// Standard Ingredient Constructor with no ID provided
+        /// </summary>
+        /// <param name="volatility">How dangerous this Ingredient is to the Imbiber</param>
+        /// <param name="ingredientEffects">All potential Effects this ingredient will have on the Imbiber</param>
         public Ingredient(string name, int volatility, List<Effect> ingredientEffects)
         {
+            id = -1;
             this.name = (name == "") ? "Unnamed Ingredient" : name;
             this.volatility = (volatility <= 0) ? 0 : volatility;
             this.ingredientEffects = (ingredientEffects == null) ? new List<Effect>() : ingredientEffects;
@@ -44,7 +60,7 @@ namespace BrewersBench
         public string defaultDescriptor()
         {
             string builder = name + "\n";
-
+            builder += "~ " + volatility + " volatility\n";
             foreach (Effect e in ingredientEffects)
             {
                 builder += e.defaultDescriptor() + "\n";

@@ -110,6 +110,42 @@ namespace BrewersBench
         {
             return benchStock.getStockedPotions().Count;
         }
+
+        /// <summary>
+        /// Gets the list of stocked Vessels from the Bench Stock.
+        /// </summary>
+        /// <returns></returns>
+        public List<Vessel> getStockedVessels()
+        {
+            return benchStock.getStockedVessels();
+        }
+
+        /// <summary>
+        /// Gets the list of stocked Bases from the Bench Stock.
+        /// </summary>
+        /// <returns></returns>
+        public List<Base> getStockedBases()
+        {
+            return benchStock.getStockedBases();
+        }
+
+        /// <summary>
+        /// Gets the list of stocked Ingredients from the Bench Stock.
+        /// </summary>
+        /// <returns></returns>
+        public List<Ingredient> getStockedIngredients()
+        {
+            return benchStock.getStockedIngredients();
+        }
+
+        /// <summary>
+        /// Gets the list of stocked Potions from the Bench Stock.
+        /// </summary>
+        /// <returns></returns>
+        public List<Potion> getStockedPotions()
+        {
+            return benchStock.getStockedPotions();
+        }
     }
 
 
