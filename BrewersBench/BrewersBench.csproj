@@ -64,6 +64,7 @@
     <Compile Include="BenchStock.cs" />
     <Compile Include="BenchUser.cs" />
     <Compile Include="BenchCommand.cs" />
+    <Compile Include="BrewerClient.cs" />
     <Compile Include="BrewersBenchDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -108,10 +109,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BrewersBenchDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="BrewersBenchDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>BrewersBenchDB.mdf</DependentUpon>
     </Content>
   </ItemGroup>

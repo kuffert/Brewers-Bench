@@ -41,6 +41,7 @@ namespace BrewersBench
             stockedIngredients = dbQuery.queryIngredients();
             stockedVessels = dbQuery.queryVessels();
             stockedBases = dbQuery.queryBases();
+            stockedPotions = dbQuery.queryPotions();
         }
 
         /// <summary>
@@ -66,8 +67,9 @@ namespace BrewersBench
             string builder = "";
             builder += "Current bench stock:\n";
             builder += "Stocked Vessels: " + stockedVessels.Count + "\n";
-            builder += "Stocked Ingredients: " + stockedIngredients + "\n";
-            builder += "Stocked Potions: " + stockedPotions + "\n";
+            builder += "Stocked Bases: " + stockedBases.Count + "\n";
+            builder += "Stocked Ingredients: " + stockedIngredients.Count + "\n";
+            builder += "Stocked Potions: " + stockedPotions.Count + "\n";
             return builder;
         }
 
@@ -169,7 +171,8 @@ namespace BrewersBench
         /// <param name="v"></param>
         public void stockVessel(Vessel v)
         {
-            stockedVessels.Add(v);
+            dbQuery.InsertNewVessel(v);
+            stockedVessels = dbQuery.queryVessels();
         }
 
         /// <summary>
@@ -178,7 +181,8 @@ namespace BrewersBench
         /// <param name="b"></param>
         public void stockBase(Base b)
         {
-            stockedBases.Add(b);
+            dbQuery.InsertNewBase(b);
+            stockedBases = dbQuery.queryBases();
         }
 
         /// <summary>
@@ -187,7 +191,8 @@ namespace BrewersBench
         /// <param name="i"></param>
         public void stockIngredient(Ingredient i)
         {
-            stockedIngredients.Add(i);
+            dbQuery.InsertNewIngredient(i);
+            stockedIngredients = dbQuery.queryIngredients();
         }
 
         /// <summary>
@@ -196,7 +201,17 @@ namespace BrewersBench
         /// <param name="p"></param>
         public void stockPotion(Potion p)
         {
-            stockedPotions.Add(p);
+            dbQuery.InsertNewPotion(p);
+            stockedPotions = dbQuery.queryPotions();
+        }
+
+        /// <summary>
+        /// Returns "Bench Stock"
+        /// </summary>
+        /// <returns></returns>
+        public string getName()
+        {
+            return "Bench Stock";
         }
     }
 

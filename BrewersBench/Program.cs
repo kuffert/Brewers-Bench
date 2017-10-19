@@ -10,7 +10,7 @@ namespace BrewersBench
     {
         static void Main(string[] args)
         {
-            OutputHandler oh = OutputHandler.GetDialogueHandlerInstance();
+            OutputHandler oh = OutputHandler.GetOutputHandlerInstance();
 
             while (true)
             {
@@ -31,6 +31,16 @@ namespace BrewersBench
                     Stocker stocker = new Stocker();
                     StockerClient sc = new StockerClient(stocker);
                     int outcome = sc.StockerClientMain();
+                    if (outcome < 0)
+                    {
+                        return;
+                    }
+                }
+                if (selection == "brew")
+                {
+                    Brewer brewer = new Brewer();
+                    BrewerClient bc = new BrewerClient(brewer);
+                    int outcome = bc.BrewerClientMain();
                     if (outcome < 0)
                     {
                         return;

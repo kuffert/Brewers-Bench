@@ -22,6 +22,7 @@ namespace BrewersBench
         private BrewersBenchSystem()
         {
             benchStock = BenchStock.GetBenchStockInstance();
+            benchBrewing = BenchBrewing.GetBenchBrewingInstance();
             // need to init benchBrewing as Singleton
         }
 
@@ -146,8 +147,51 @@ namespace BrewersBench
         {
             return benchStock.getStockedPotions();
         }
+
+        /// <summary>
+        /// Passes the selected Vessel to the Brewing system.
+        /// </summary>
+        /// <param name="v"></param>
+        public void addBrewVessel(Vessel v)
+        {
+            benchBrewing.addVessel(v);
+        }
+
+        /// <summary>
+        /// Passes the selected Base to the Brewing system.
+        /// </summary>
+        /// <param name="b"></param>
+        public void addBrewBase(Base b)
+        {
+            benchBrewing.addBase(b);
+        }
+
+        /// <summary>
+        /// Passes the selected Ingredient to the Brewing system.
+        /// </summary>
+        /// <param name="i"></param>
+        public void addBrewIngredient(Ingredient i)
+        {
+            benchBrewing.addIngredient(i);
+        }
+
+        /// <summary>
+        /// Brews the Potion, then Stocks it.
+        /// </summary>
+        /// <returns></returns>
+        public Potion brewAndStockPotion()
+        {
+            Potion p = benchBrewing.brewPotion();
+            benchStock.stockPotion(p);
+            return p;
+        }
+        
+        /// <summary>
+        /// Tells the Brewing system to clean and reset the currently brewed Potion.
+        /// </summary>
+        public void cleanPotion()
+        {
+            benchBrewing.cleanPotion();
+        }
     }
-
-
-
 }

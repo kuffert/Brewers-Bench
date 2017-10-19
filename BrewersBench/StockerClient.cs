@@ -27,7 +27,7 @@ namespace BrewersBench
         public StockerClient(Stocker stocker)
         {
             this.stocker = stocker;
-            oh = OutputHandler.GetDialogueHandlerInstance();
+            oh = OutputHandler.GetOutputHandlerInstance();
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace BrewersBench
                     return handleIngredient();
                 default:
                     oh.outputStandardStockerInvalidInputMessage();
-                    return 0;
+                    return 1;
             }
         }
 
@@ -183,16 +183,8 @@ namespace BrewersBench
                         oh.outputBaseInputError(step);
                         break;
                     case 3:
-                        int effectsOutcome = handleEffect();
-                        if (effectsOutcome == 0)
-                        {
-                            return 0;
-                        }
-                        if (effectsOutcome < 0)
-                        {
-                            oh.outputBaseInputError(step);
-                            break;
-                        }
+                        List<Effect> effectsOutcome = handleEffect();
+                        b.baseEffects = effectsOutcome;
                         step++;
                         break;
                 }
@@ -209,11 +201,12 @@ namespace BrewersBench
         {
             Ingredient i = new Ingredient();
             int step = 0;
+            string input = "";
             while (step < 3)
             {
                 oh.outputIngredientRequiredNextInput(step);
-                string input = Console.ReadLine();
-                switch(step)
+                input = Console.ReadLine();
+                switch (step)
                 {
                     case 0:
                         i.name = input;
@@ -230,16 +223,8 @@ namespace BrewersBench
                         oh.outputIngredientInputError(step);
                         break;
                     case 2:
-                        int effectsOutcome = handleEffect();
-                        if (effectsOutcome == 0)
-                        {
-                            return 0;
-                        }
-                        if (effectsOutcome < 0)
-                        {
-                            oh.outputIngredientInputError(step);
-                            break;
-                        }
+                        List<Effect> effects = handleEffect();
+                        i.ingredientEffects = effects;
                         step++;
                         break;
                 }
@@ -262,9 +247,107 @@ namespace BrewersBench
         /// Handles "effect" user input. 
         /// </summary>
         /// <returns></returns>
-        private  int handleEffect()
+        private List<Effect> handleEffect()
         {
-            return 1;
+            int step = 0;
+            string name = "";
+            int intensity = 0;
+            EffectType type = EffectType.NONE;
+            int effectSubtype = 0;
+            List<Effect> effects = new List<Effect>();
+            while (step < 4)
+            {
+                oh.outputEffectRequiredNextInput(step, type);
+                string input = Console.ReadLine();
+                if (input == "done")
+                {
+                    return effects;
+                }
+                switch (step)
+                {
+                    case 0:
+                        name = input;
+                        step++;
+                        break;
+                    case 1:
+                        switch(input)
+                        {
+                            case "Stat":
+                                type = EffectType.STAT;
+                                step++;
+                                break;
+                            case "Buff":
+                                type = EffectType.BUFF;
+                                step++;
+                                break;
+                            case "Debuff":
+                                type = EffectType.DEBUFF;
+                                step++;
+                                break;
+                            default:
+                                oh.outputEffectInputError(step);
+                                break;
+                        }
+                        break;
+                    case 2:
+                        switch (type)
+                        {
+                            case EffectType.STAT:
+                                try
+                                {
+                                    effectSubtype = (int)StatEffect.getImbiberStatByString(input);
+                                }
+                                catch (FormatException)
+                                {
+                                    oh.outputEffectInputError(step);
+                                    break;
+                                }
+                                step++;
+                                break;
+                            case EffectType.BUFF:
+                                try
+                                {
+                                    effectSubtype = (int)BuffEffect.getBuffEffectByString(input);
+                                }
+                                catch (FormatException)
+                                {
+                                    oh.outputEffectInputError(step);
+                                    break;
+                                }
+                                step++;
+                                break;
+                            case EffectType.DEBUFF:
+                                try
+                                {
+                                    effectSubtype = (int)DebuffEffect.getDebuffEffectByString(input);
+                                }
+                                catch (FormatException)
+                                {
+                                    oh.outputEffectInputError(step);
+                                    break;
+                                }
+                                step++;
+                                break;
+                        }
+                        break;
+                    case 3:
+                        if (Int32.TryParse(input, out intensity))
+                        {
+                            step++;
+                            break;
+                        }
+                        oh.outputEffectInputError(step);
+                        break;
+                }
+                if (step == 4)
+                {
+                    Effect e = Effect.GenerateEffect(name, type, effectSubtype, intensity);
+                    effects.Add(e);
+                    oh.outputEffectSuccess();
+                    step = 0;
+                }
+            }
+            return effects;
         }
     }
 }

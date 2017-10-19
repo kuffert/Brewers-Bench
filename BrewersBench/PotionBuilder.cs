@@ -174,7 +174,7 @@ namespace BrewersBench
             name += (doses >= 1 && doses < 3) ? "Small " : "";
 
             name += (volatility >= 100) ? "Deadly" : "";
-            name += (volatility >= 50 && volatility < 100) ? "Dangerous" : "";
+            name += (volatility >= 50 && volatility < 100) ? "Dangerous " : "";
 
             name += potionVessel.name + " of ";
 

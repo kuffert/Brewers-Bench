@@ -103,6 +103,21 @@ namespace BrewersBench
         {
             return system.getStockedPotions();
         }
+
+        /// <summary>
+        /// Returns an array of names pulled from a List of Descriptables.
+        /// </summary>
+        /// <param name="descriptables"></param>
+        /// <returns></returns>
+        public string[] getNames(List<IDescriptor> descriptables)
+        {
+            string[] names = new string[descriptables.Count];
+            for(int i = 0; i < descriptables.Count; i++)
+            {
+                names[i] = descriptables[i].getName();
+            }
+            return names;
+        }
     }
 
     /// <summary>
@@ -193,6 +208,63 @@ namespace BrewersBench
         public Brewer()
         {
             brewCommands = new List<BrewerCommand>();
+        }
+
+        /// <summary>
+        /// Invokes a command to add a Vessel to the brew.
+        /// </summary>
+        /// <param name="v"></param>
+        public void addBrewVessel(Vessel v)
+        {
+            BrewerCommand command = new AddBrewVesselCommand(system, v);
+            command.execute();
+            brewCommands.Add(command);
+            currentCommand++;
+        }
+
+        /// <summary>
+        /// Invokes a command to add a Base to the brew.
+        /// </summary>
+        /// <param name="b"></param>
+        public void addBrewBase(Base b)
+        {
+            BrewerCommand command = new AddBrewBaseCommand(system, b);
+            command.execute();
+            brewCommands.Add(command);
+            currentCommand++;
+        }
+
+        /// <summary>
+        /// Invokes a command to add an Ingredient to the brew.
+        /// </summary>
+        /// <param name="i"></param>
+        public void addBrewIngredient(Ingredient i)
+        {
+            BrewerCommand command = new AddBrewIngredientCommand(system, i);
+            command.execute();
+            brewCommands.Add(command);
+            currentCommand++;
+        }
+
+        /// <summary>
+        /// Invokes a command to brew the Potion, then return it.
+        /// </summary>
+        /// <returns></returns>
+        public Potion brewPotion()
+        {
+            BrewAndStockPotionCommand command = new BrewAndStockPotionCommand(system);
+            command.execute();
+            brewCommands.Add(command);
+            currentCommand++;
+            return command.getPotion();
+        }
+
+        /// <summary>
+        /// Requests the Brewer Bench System to clean and reset the currently brewed potion.
+        /// </summary>
+        public void cleanPotion()
+        {
+            system.cleanPotion();
         }
     }
 }

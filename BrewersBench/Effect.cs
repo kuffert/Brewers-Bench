@@ -90,6 +90,41 @@ namespace BrewersBench
         public abstract string composeEffectDescription();
 
         /// <summary>
+        /// Gets the Effect's type as an enum.
+        /// </summary>
+        /// <returns></returns>
+        public abstract EffectType getEffectEnumType();
+
+        /// <summary>
+        /// Gets the intensity of the Effect.
+        /// </summary>
+        /// <returns></returns>
+        public abstract int getIntensity();
+
+        /// <summary>
+        /// Generates an effect based on the given specififcations
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="subType"></param>
+        /// <param name="intensity"></param>
+        /// <returns></returns>
+        public static Effect GenerateEffect(string name, EffectType type, int subType, int intensity)
+        {
+            switch (type)
+            {
+                case EffectType.STAT:
+                    return new StatEffect(name, (ImbiberStat)subType, intensity);
+                case EffectType.BUFF:
+                    return new BuffEffect(name, (ImbiberBuff)subType, intensity);
+                case EffectType.DEBUFF:
+                    return new DebuffEffect(name, (ImbiberDebuff)subType, intensity);
+                default:
+                    return new NoEffect();
+            }
+        }
+
+        /// <summary>
         /// Determines whether the given buff and debuff are opposites.
         /// </summary>
         /// <param name="buff">The buff to compare</param>
@@ -101,6 +136,15 @@ namespace BrewersBench
                    (buff == ImbiberBuff.Barrier && debuff == ImbiberDebuff.Dullness) ||
                    (buff == ImbiberBuff.Speed && debuff == ImbiberDebuff.Slowness) ||
                    (buff == ImbiberBuff.Aim && debuff == ImbiberDebuff.Blindness));
+        }
+
+        /// <summary>
+        /// Returns this effect's name.
+        /// </summary>
+        /// <returns></returns>
+        public string getName()
+        {
+            return name;
         }
     }
 
@@ -202,6 +246,23 @@ namespace BrewersBench
             return "No Effect";
         }
 
+        /// <summary>
+        /// Returns NONE.
+        /// </summary>
+        /// <returns></returns>
+        public override EffectType getEffectEnumType()
+        {
+            return EffectType.NONE;
+        }
+
+        /// <summary>
+        /// No Effect has no intensity
+        /// </summary>
+        /// <returns></returns>
+        public override int getIntensity()
+        {
+            return 0;
+        }
     }
 
     /// <summary>
@@ -341,6 +402,46 @@ namespace BrewersBench
         public override string composeEffectDescription()
         {
             return "+ " + statModifier + " " + affectedStat;
+        }
+
+        /// <summary>
+        /// Returns STAT.
+        /// </summary>
+        /// <returns></returns>
+        public override EffectType getEffectEnumType()
+        {
+            return EffectType.STAT;
+        }
+
+        /// <summary>
+        /// Returns stat modifier.
+        /// </summary>
+        /// <returns></returns>
+        public override int getIntensity()
+        {
+            return statModifier;
+        }
+
+        /// <summary>
+        /// Returns the Imbiber stat given its name as a string.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static ImbiberStat getImbiberStatByString(string name)
+        {
+            switch (name)
+            {
+                case "Health":
+                    return ImbiberStat.Health;
+                case "Stamina":
+                    return ImbiberStat.Stamina;
+                case "Attack":
+                    return ImbiberStat.Attack;
+                case "Defense":
+                    return ImbiberStat.Defense;
+                default:
+                    throw new FormatException();
+            }
         }
     }
 
@@ -482,6 +583,45 @@ namespace BrewersBench
             return "+ " + intensity + " " + buff;
         }
 
+        /// <summary>
+        /// Returns BUFF.
+        /// </summary>
+        /// <returns></returns>
+        public override EffectType getEffectEnumType()
+        {
+            return EffectType.BUFF;
+        }
+
+        /// <summary>
+        /// Returns intensity.
+        /// </summary>
+        /// <returns></returns>
+        public override int getIntensity()
+        {
+            return intensity;
+        }
+
+        /// <summary>
+        /// Gets the Effect's Buff by name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static ImbiberBuff getBuffEffectByString(string name)
+        {
+            switch (name)
+            {
+                case "Shielding":
+                    return ImbiberBuff.Shielding;
+                case "Barrier":
+                    return ImbiberBuff.Barrier;
+                case "Speed":
+                    return ImbiberBuff.Speed;
+                case "Aim":
+                    return ImbiberBuff.Aim;
+                default:
+                    throw new FormatException();
+            }
+        }
     }
 
     /// <summary>
@@ -515,7 +655,7 @@ namespace BrewersBench
         }
 
         /// <summary>
-        /// Standard DebuffEffect Constructor with no ID provided
+        /// Standard Debuff Effect Constructor with no ID provided
         /// </summary>
         public DebuffEffect(string name, ImbiberDebuff debuff, int intensity)
         {
@@ -612,6 +752,46 @@ namespace BrewersBench
         public override string composeEffectDescription()
         {
             return "- " + intensity + " " + debuff;
+        }
+
+        /// <summary>
+        /// Returns DEBUFF.
+        /// </summary>
+        /// <returns></returns>
+        public override EffectType getEffectEnumType()
+        {
+            return EffectType.DEBUFF;
+        }
+
+        /// <summary>
+        /// Returns intensity.
+        /// </summary>
+        /// <returns></returns>
+        public override int getIntensity()
+        {
+            return intensity;
+        }
+
+        /// <summary>
+        /// Gets the Effect's Buff by name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static ImbiberDebuff getDebuffEffectByString(string name)
+        {
+            switch (name)
+            {
+                case "Weakness":
+                    return ImbiberDebuff.Weakness;
+                case "Dullness":
+                    return ImbiberDebuff.Dullness;
+                case "Slowness":
+                    return ImbiberDebuff.Slowness;
+                case "Blindness":
+                    return ImbiberDebuff.Blindness;
+                default:
+                    throw new FormatException();
+            }
         }
     }
 }

@@ -92,7 +92,7 @@ namespace BrewersBench
                 builder += e.defaultDescriptor() + "\n";
             }
 
-            return builder;
+            return builder.Substring(0, builder.Length - 1);
         }
 
         /// <summary>
@@ -111,6 +111,51 @@ namespace BrewersBench
         public List<Effect> getEffects()
         {
             return potionEffects;
+        }
+
+        /// <summary>
+        /// Returns this Potion's name.
+        /// </summary>
+        /// <returns></returns>
+        public string getName()
+        {
+            return name;
+        }
+
+        /// <summary>
+        /// Gets the Potion's Id
+        /// </summary>
+        /// <returns></returns>
+        public int getId()
+        {
+            return id;
+        }
+
+        /// <summary>
+        /// Gets the Potion's doses
+        /// </summary>
+        /// <returns></returns>
+        public float getDoses()
+        {
+            return doses;
+        }
+
+        /// <summary>
+        /// Gets the Potion's Usage
+        /// </summary>
+        /// <returns></returns>
+        public Usage getUsage()
+        {
+            return usage;
+        }
+
+        /// <summary>
+        /// Gets the Potion's volatility
+        /// </summary>
+        /// <returns></returns>
+        public int getVolatility()
+        {
+            return volatility;
         }
     }
 

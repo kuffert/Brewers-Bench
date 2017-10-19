@@ -27,7 +27,7 @@ namespace BrewersBench
         /// Retrieves the single instance of the DialogueHandler singleton, and creates a new one if one does not yet exist.
         /// </summary>
         /// <returns></returns>
-        public static OutputHandler GetDialogueHandlerInstance()
+        public static OutputHandler GetOutputHandlerInstance()
         {
             if (instance == null)
             {
@@ -50,12 +50,12 @@ namespace BrewersBench
         /// <summary>
         /// When a new potion is a brewed, this function will output the Potion's details.
         /// </summary>
-        /// <param name="pb"></param>
-        public void outputNewPotionDetails(PotionBuilder pb)
+        /// <param name="potion">Potion details to output</param>
+        public void outputNewPotionDetails(Potion potion)
         {
             Console.WriteLine("----------NEW POTION BREWED!!!------------");
             Console.WriteLine("------------------------------------------");
-            Console.WriteLine(pb.getPotion().defaultDescriptor());
+            Console.WriteLine(potion.defaultDescriptor());
             Console.WriteLine("------------------------------------------");
         }
 
@@ -86,6 +86,14 @@ namespace BrewersBench
         }
 
         /// <summary>
+        /// Outputs the standard message to a Brewer user.
+        /// </summary>
+        public void outputStandardBrewerMessage()
+        {
+            Console.WriteLine("To begin brewing a potion, please enter 'begin'");
+        }
+
+        /// <summary>
         /// Outputs the standard message to a Stocker User when an invalid input is recieved.
         /// </summary>
         public void outputStandardStockerInvalidInputMessage()
@@ -111,12 +119,21 @@ namespace BrewersBench
         }
 
         /// <summary>
-        /// Outputs a Observver error message depending on the given code.
+        /// Outputs an Observer error message depending on the given code.
         /// </summary>
         /// <param name="errorCode"></param>
         public void outputObserverError(int errorCode)
         {
             Console.WriteLine("Sometthing went wrong. Aborting.");
+        }
+
+        /// <summary>
+        /// Outputs a Brewer error message depending on the given code.
+        /// </summary>
+        /// <param name="errorCode"></param>
+        public void outputBrewerError(int errorCode)
+        {
+            Console.WriteLine("Something went wrong. Aborting.");
         }
 
         /// <summary>
@@ -191,7 +208,7 @@ namespace BrewersBench
                     Console.WriteLine("Enter the base dosage modifer (.1 - 1)");
                     break;
                 case 3:
-                    Console.WriteLine("Enter the base's effects");
+                    Console.WriteLine("Enter the base's effects. Press 'ENTER' to begin.");
                     break;
             }
         }
@@ -242,7 +259,7 @@ namespace BrewersBench
                     Console.WriteLine("Enter the Indredient volatility (0-100)");
                     break;
                 case 2:
-                    Console.WriteLine("Enter the Ingredient's effects");
+                    Console.WriteLine("Enter the Ingredient's effects. Press 'ENTER' to begin.");
                     break;
             }
         }
@@ -265,6 +282,28 @@ namespace BrewersBench
                     Console.WriteLine("Error accepting effects. Try again.");
                     break;
             }
+        }
+
+        /// <summary>
+        /// Outputs an input error depending on the current brewing step.
+        /// </summary>
+        /// <param name="step"></param>
+        public void outputBrewerInputError(int step)
+        {
+            string itemType = "";
+            switch (step)
+            {
+                case 0:
+                    itemType = "Vessel";
+                    break;
+                case 1:
+                    itemType = "Base";
+                    break;
+                case 2:
+                    itemType = "Ingredient";
+                    break;
+            }
+            Console.WriteLine("Invalid " + itemType + " name selected. Try again.");
         }
 
         /// <summary>
@@ -341,6 +380,109 @@ namespace BrewersBench
                 Console.WriteLine(p.defaultDescriptor());
                 Console.WriteLine("-----------------");
             }
+        }
+
+        /// <summary>
+        /// Outputs a message letting the user know what type of item they need to select next,
+        /// depending on their current brew step.
+        /// </summary>
+        /// <param name="itemType"></param>
+        public void outputBrewNextTypeSelect(int step)
+        {
+            string itemType = "";
+            switch(step)
+            {
+                case 0:
+                    itemType = "Vessel";
+                    break;
+                case 1:
+                    itemType = "Base";
+                    break;
+                case 2:
+                    itemType = "Ingredient";
+                    break;
+            }
+            Console.WriteLine("Please select one of the following " + itemType);
+        }
+
+        /// <summary>
+        /// Outputs a message prompting brewing input.
+        /// </summary>
+        public void outputBrewPotionPrompt()
+        {
+            Console.WriteLine("Enter 'brew' to brew this potion, or 'cancel' to start over.");
+        }
+
+        /// <summary>
+        /// Outputs a message alerting user of invalid brew input.
+        /// </summary>
+        public void outputBrewPotionPromptError()
+        {
+            Console.WriteLine("Invalid brew input, try again.");
+        }
+
+        /// <summary>
+        /// Outputs a message prompting the user for the next input when making
+        /// a new effect
+        /// </summary>
+        /// <param name="step"></param>
+        public void outputEffectRequiredNextInput(int step, EffectType type)
+        {
+            switch (step)
+            {
+                case 0:
+                    Console.WriteLine("Enter a name for this effect, or 'done' to cancel.");
+                    break;
+                case 1:
+                    Console.WriteLine("Select an effect type : Stat, Buff, or Debuff");
+                    break;
+                case 2:
+                    switch (type)
+                    {
+                        case EffectType.STAT:
+                            Console.WriteLine("Select stat: Health, Stamina, Attack, Defense");
+                            break;
+                        case EffectType.BUFF:
+                            Console.WriteLine("Select a buff: Shielding, Barrier, Speed, Aim");
+                            break;
+                        case EffectType.DEBUFF:
+                            Console.WriteLine("Select a debuff: Weakness, Dullness, Slowness, Blindness");
+                            break;
+                    }
+                    break;
+                case 3:
+                    Console.WriteLine("Enter the Intensity of the effect");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Outputs an error message if the input while creating a new effect
+        /// is invalid.
+        /// </summary>
+        /// <param name="step"></param>
+        public void outputEffectInputError(int step)
+        {
+            switch(step)
+            {
+                case 1:
+                    Console.WriteLine("Incorrect type, try again.");
+                    break;
+                case 2:
+                    Console.WriteLine("Incorrect type, try again.");
+                    break;
+                case 3:
+                    Console.WriteLine("Invalid amount, try again.");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Outputs a message stating the effect creation was a success.
+        /// </summary>
+        public void outputEffectSuccess()
+        {
+            Console.WriteLine("Effect successfully created.");
         }
     }
 }

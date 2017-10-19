@@ -27,7 +27,7 @@ namespace BrewersBench
         public ObserverClient(BenchUser observer)
         {
             this.observer = observer;
-            oh = OutputHandler.GetDialogueHandlerInstance();
+            oh = OutputHandler.GetOutputHandlerInstance();
         }
 
         /// <summary>

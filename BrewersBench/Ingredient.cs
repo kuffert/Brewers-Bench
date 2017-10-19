@@ -65,8 +65,25 @@ namespace BrewersBench
             {
                 builder += e.defaultDescriptor() + "\n";
             }
+            return builder.Substring(0, builder.Length-1);
+        }
 
-            return builder;
+        /// <summary>
+        /// Returns this Ingredient's name.
+        /// </summary>
+        /// <returns></returns>
+        public string getName()
+        {
+            return name;
+        }
+
+        /// <summary>
+        /// Gets the Ingredient's Id.
+        /// </summary>
+        /// <returns></returns>
+        public int getId()
+        {
+            return id;
         }
     }
 }

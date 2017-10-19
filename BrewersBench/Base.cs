@@ -68,12 +68,29 @@ namespace BrewersBench
             string builder = "";
             builder += name + "\n";
             builder += "~ " + volatility + " Volatility\n";
-            builder += "~ " + dosageMod + " Dosage Modfier";
+            builder += "~ " + dosageMod + " Dosage Modfier\n";
             foreach(Effect e in baseEffects)
             {
                 builder += e.defaultDescriptor() + "\n";
             }
-            return builder;
+            return builder.Substring(0, builder.Length - 1);
+        }
+
+        /// <summary>
+        /// Returns the base's name.
+        /// </summary>
+        /// <returns></returns>
+        public string getName()
+        {
+            return name;
+        }
+
+        /// <summary>
+        /// Gets the Base's Id.
+        /// </summary>
+        public int getId()
+        {
+            return id;
         }
     }
 }

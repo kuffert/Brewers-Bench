@@ -92,5 +92,14 @@ namespace BrewersBench
             builder += "~ " + radius + " ft. radius";
             return builder;
         }
+
+        /// <summary>
+        /// Returns this Vessel's name.
+        /// </summary>
+        /// <returns></returns>
+        public string getName()
+        {
+            return name;
+        }
     }
 }

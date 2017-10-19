@@ -17,6 +17,12 @@ namespace BrewersBench
         /// <returns></returns>
         string defaultDescriptor();
 
+        /// <summary>
+        /// Gets the name of the Descriptable.
+        /// </summary>
+        /// <returns></returns>
+        string getName();
+
 
     }
 }
